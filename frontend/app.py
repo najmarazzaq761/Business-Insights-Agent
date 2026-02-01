@@ -1,6 +1,7 @@
 import streamlit as st
 import sys
 import os
+from langchain_core.messages import SystemMessage
 
 # Add the parent directory to sys.path to resolve 'backend' imports
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -84,6 +85,9 @@ if uploaded_data is not None:
              save_to_sql(df, table_name, USER_DATA_DB_PATH)
              st.success(f"Data ready for analysis (Table: {table_name})")
              
+             # Add system message to history to notify agent of data update
+             chat_history.add_message(SystemMessage(content=f"System Notification: The user has updated the data for table '{table_name}'. Previous data insights may be obsolete. You must re-query the database for this table."))
+
              st.session_state.agent = get_chat_agent()
              
         except Exception as e:
@@ -93,9 +97,13 @@ if uploaded_data is not None:
 
 # Display chat messages from history
 for message in chat_history.messages:
-    role = "user" if message.type == "human" else "assistant"
-    with st.chat_message(role):
-        st.markdown(message.content)
+    if message.type == "system":
+        with st.chat_message("assistant", avatar="⚙️"):
+            st.caption(f"_{message.content}_")
+    else:
+        role = "user" if message.type == "human" else "assistant"
+        with st.chat_message(role):
+            st.markdown(message.content)
 
 
 if prompt := st.chat_input("Ask a question about your data"):
