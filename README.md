@@ -4,6 +4,12 @@
 Business Insights Agent is an AI-powered application designed to analyze business data and generate meaningful insights through natural language interaction. It allows users to query data, perform analysis, and visualize results using intelligent agents and tools.
 
 ---
+## Try Live here: 
+https://business-insights-agent.streamlit.app/
+
+https://github.com/user-attachments/assets/4e469b79-af0f-4c64-bb83-4e2d5c50c375
+
+
 
 ## Key Features
 
