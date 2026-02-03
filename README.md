@@ -5,7 +5,7 @@ Business Insights Agent is an AI-powered application designed to analyze busines
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
 *  AI-driven agents for business analysis
 *  Natural language querying over structured data
